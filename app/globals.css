@@ -68,7 +68,7 @@ body {
 
 /* Project Actions */
 .edit-action_btn {
-  @apply p-3 text-gray-100 bg-light-white-400 rounded-lg text-sm font-medium;
+  @apply p-3 text-gray-100 bg-gray-400 rounded-lg text-sm font-medium;
 }
 
 .delete-action_btn {
@@ -90,20 +90,20 @@ body {
 
 /* Custom Menu */
 .custom_menu-btn {
-  @apply gap-4 w-full rounded-md bg-light-white-100 p-4 text-base outline-none capitalize;
+  @apply gap-4 w-full rounded-md bg-gray-100 p-4 text-base outline-none capitalize;
 }
 
 .custom_menu-items {
-  @apply flex-col absolute left-0 mt-2 xs:min-w-[300px] w-fit max-h-64 origin-top-right rounded-xl bg-white border border-nav-border shadow-menu overflow-y-auto;
+  @apply flex-col absolute left-0 mt-2  w-fit max-h-64 origin-top-right rounded-xl bg-white border   overflow-y-auto;
 }
 
 .custom_menu-item {
-  @apply text-left w-full px-5 py-2 text-sm hover:bg-light-white-100 self-start whitespace-nowrap capitalize;
+  @apply text-left w-full px-5 py-2 text-sm hover:bg-gray-100 self-start whitespace-nowrap capitalize;
 }
 
 /* Footer */
 .footer {
-  @apply flex-col paddings w-full gap-20 bg-light-white;
+  @apply flex-col paddings w-full gap-20 bg-white;
 }
 
 .footer_copyright {
@@ -116,7 +116,7 @@ body {
 
 /* Form Field */
 .form_field-input {
-  @apply w-full outline-0 bg-light-white-100 rounded-xl p-4;
+  @apply w-full outline-0 bg-gray-100 rounded-xl p-4;
 }
 
 /* Modal */
@@ -130,12 +130,12 @@ body {
 
 /* Navbar */
 .navbar {
-  @apply py-5 px-8 border-b border-nav-border gap-4;
+  @apply py-5 px-8 border-b  gap-4;
 }
 
 /* Profile Menu */
 .profile_menu-items {
-  @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 p-7 sm:min-w-[300px] min-w-max rounded-xl bg-white border border-nav-border shadow-menu;
+  @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 p-7 sm:min-w-[300px] min-w-max rounded-xl bg-white border  ;
 }
 
 /* Profile Card */

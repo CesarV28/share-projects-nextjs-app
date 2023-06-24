@@ -1,3 +1,7 @@
+/**
+ * Archivo de definición para diferentes sección de la página
+ */
+
 export const NavLinks = [
     { href: '/', key: 'Inspiration', text: 'Inspiration' },
     { href: '/', key: 'Find Projects', text: 'Find Projects' },

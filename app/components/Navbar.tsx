@@ -3,15 +3,23 @@ import Link from 'next/link'
 import { NavLinks } from '@/constants'
 import AuthProviders from './AuthProviders'
 import { getCurrentUser } from '@/lib/session'
-import { signOut } from 'next-auth/react'
 import ProfileMenu from './ProfileMenu'
 
 const Navbar = async() => {
 
-  const session = await getCurrentUser();
+//   const session = await getCurrentUser();
+    const session = {
+        user: {
+            id: '',
+            name: '',
+            email: '',
+            avatarUrl: '',
+        },
+        expires: '',
+    }
 
   return (
-    <nav className='flexBetween navbar'>
+    <nav className='flex justify-between items-center navbar'>
         <div className='flex-1 flexStart gap-10'>
             <Link href='/'>
                 <Image
@@ -30,8 +38,8 @@ const Navbar = async() => {
             </ul>
         </div>
 
-        <div className='flexCenter gap-4'>
-            {session?.user
+        <div className='flex justify-center items-center gap-4'>
+            {false
                ?  (<>
                     <ProfileMenu session={ session }/>
                     <Link href='/create-project'>
@@ -39,7 +47,8 @@ const Navbar = async() => {
                     </Link>
                   </>)
                 : (<>
-                    <AuthProviders/>
+                    {/* <AuthProviders/> */}
+                    Provider
                   </>)
             }
         </div>

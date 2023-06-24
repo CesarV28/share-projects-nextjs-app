@@ -4,8 +4,8 @@ import Navbar from './components/Navbar'
 import './globals.css'
 
 export const metadata = {
-  title: 'Flexible',
-  description: 'Showcase and discover remarcable developer projects',
+  title: 'APP NAME',
+  description: 'APP DESCRIPTION',
   icons: {
     icon: 'favicon.ico'
   }

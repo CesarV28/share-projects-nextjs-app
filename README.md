@@ -11,9 +11,20 @@ yarn dev
 pnpm dev
 ```
 
-## Initialice Grafbase cli and copy credentials in .env
+## Crear un archivo donde se harán las llamadas a la base de datos con el nombre del orm, ejm:
+ - supabase
+ - prisma
+ - typeorm
 ```
-npx grafbase@.24 dev
+mkdir [folder_name]
+```
+
+## Create model database if necesary:
+ - supabase
+ - prisma
+ - typeorm
+```
+mkdir [folder_name]
 ```
 
 ## Configure .env file

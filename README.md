@@ -11,6 +11,11 @@ yarn dev
 pnpm dev
 ```
 
+## Initialice Grafbase cli and copy credentials in .env
+```
+npx grafbase@.24 dev
+```
+
 ## Configure .env file
 ```
 cp .example.env .env
@@ -19,9 +24,4 @@ cp .example.env .env
 ## Create Next Auth Secret for .env
 ```
 openssl rand -base64 32
-```
-
-## Initialice Grafbase cli
-```
-npx grafbase@.24 dev
 ```

@@ -6,19 +6,19 @@ type Props = {
     leftIcon?: string | null,
     rightIcon?: string | null,
     handleClick?: MouseEventHandler,
-    submitting?: boolean | false,
+    isSubmittin?: boolean | false,
     type?: 'button' | 'submit',
     bgColor?: string,
     textColor?: string
 }
 
-const Button = ({ title, leftIcon, rightIcon, handleClick, submitting, type, bgColor, textColor }: Props) => (
+const Button = ({ title, leftIcon, rightIcon, handleClick, isSubmittin, type, bgColor, textColor }: Props) => (
     <button
         type={type || 'button'}
-        disabled={submitting || false}
+        disabled={isSubmittin || false}
         className={`flexCenter gap-3 px-4 py-3 
         ${textColor ? textColor : 'text-white'} 
-        ${submitting ? 'bg-black/50' : bgColor ? bgColor : 'bg-primary-purple'} rounded-xl text-sm font-medium max-md:w-full`}
+        ${isSubmittin ? 'bg-black/50' : bgColor ? bgColor : 'bg-primary-purple'} rounded-xl text-sm font-medium max-md:w-full`}
         onClick={handleClick}
     >
         {leftIcon && <Image src={leftIcon} width={14} height={14} alt="left icon" />}

@@ -1,4 +1,5 @@
-import { createUserMutation, getUserQuery } from '@/graphql';
+import { ProjectForm } from '@/common.types';
+import { createProjectMutation, createUserMutation, getUserQuery } from '@/graphql';
 import { GraphQLClient } from 'graphql-request';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -35,7 +36,19 @@ interface ICreateUser {
     avatarUrl?: string;
 }
 
+
 // --- Functions
+// - fetchToken: token is exposed exposed in NextAuth by default
+export const fetchToken = async () => {
+    try {
+      const response = await fetch(`${serverUrl}/api/auth/token`);
+      return response.json();
+    } catch (err) {
+      throw err;
+    }
+};
+  
+
 export const getUser = ( email: string ) => {
     client.setHeader('x-api-key', apiKey );
     return makeGraphQLRequest( getUserQuery, { email });
@@ -52,5 +65,49 @@ export const createUser = ({name = '', email = '', avatarUrl = ''}: ICreateUser)
     };
 
     return makeGraphQLRequest( createUserMutation, variables );
+}
+
+export const uploadImage = async( imagePath: string ) => {
+    try {
+        const response = await fetch(`${ serverUrl }/api/upload`, {
+            method: 'POST',
+            body: JSON.stringify({ path: imagePath }),
+        });
+
+        return response.json();
+    } catch (error) {
+        console.log( error );
+        throw error;
+    }
+}
+
+export const createNewProject = async( 
+    formData: ProjectForm, 
+    creatorId: string, 
+    token: string
+    ) => {
+
+    // Traemos el url de la image
+    const { imageUrl } = await uploadImage( formData.image );
+
+    // Si existe, creamos en la base de datos
+    if( imageUrl ) {
+        // Enviamos el token para tener los permisos del creador
+        client.setHeader("Authorization", `Bearer ${token}`);
+        const variables = {
+            input: {
+                ...formData,
+                image: imageUrl,
+                createdBy: {
+                    link: creatorId
+                }
+            }
+        };
+
+        
+    
+        return makeGraphQLRequest( createProjectMutation, variables );
+    }
+
 }
 

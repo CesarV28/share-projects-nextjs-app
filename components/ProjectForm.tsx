@@ -6,6 +6,8 @@ import FormField from './FormField';
 import { categoryFilters } from '@/constants';
 import CustomMenu from './CustomMenu';
 import Button from './Button';
+import { createNewProject, fetchToken } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 interface ProjectFormProps {
     type: string,
@@ -23,17 +25,38 @@ interface IProjectForm {
 
 const ProjectForm: FC<ProjectFormProps> = ({ type, session }) => {
 
-  const handleFormSubmit = ( e: React.FormEvent ) => {
+  const router = useRouter();  
+    
+  // States
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [form, setForm] = useState<IProjectForm>({
+    image: '',
+    title: '',
+    description: '',
+    liveSiteUrl: '',
+    githubUrl: '',
+    category: '',
+  });
+
+  // Custom functions
+  const handleFormSubmit = async( e: React.FormEvent ) => {
     e.preventDefault();
 
     setIsSubmitting( true );
 
+    const { token } = await fetchToken();
+
     try {
         if( type === 'Create' ) {
+
+            await createNewProject( form, session?.user?.id, token);
             
+            router.push('/');
         }
     } catch (error) {
-        
+        console.log( error );
+    } finally {
+        setIsSubmitting( false );
     }
   } 
 
@@ -64,15 +87,7 @@ const ProjectForm: FC<ProjectFormProps> = ({ type, session }) => {
     }))
   }
 
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [form, setForm] = useState<IProjectForm>({
-    image: '',
-    title: '',
-    description: '',
-    liveSiteUrl: '',
-    githubUrl: '',
-    category: '',
-  });
+  
 
   return (
     <form
@@ -129,19 +144,12 @@ const ProjectForm: FC<ProjectFormProps> = ({ type, session }) => {
             placeholder={ 'https://github.com/devmaster'}
             setState={ (value) => handleStateChange('githubUrl', value)}
         />
-        <FormField 
-            inputType={ 'text '}
-            title={ 'Title' }
-            state={ form.title }
-            placeholder={ 'Flexibble '}
-            setState={ (value) => handleStateChange('title', value)}
-        />
 
         <CustomMenu
             title={ 'Category' }
             state={ form?.category }
             filters={ categoryFilters }
-            setState={ (value) => handleStateChange('title', value)}
+            setState={ (value) => handleStateChange('category', value)}
         />
 
         <div className='flexStart w-full'>

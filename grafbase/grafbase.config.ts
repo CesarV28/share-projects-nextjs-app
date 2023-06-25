@@ -8,7 +8,7 @@ const User = g.model('User', {
   description: g.string().length({ min: 2, max: 1000 }).optional(),
   githubUrl: g.url().optional(),
   linkedinUrl: g.url().optional(), 
-  projects: g.relation(() => Project).list().optional(),
+  projects: g.relation(() => Project! ).list().optional(),
 }).auth((rules) => {
   rules.public().read()
 })
@@ -35,6 +35,7 @@ const jwt = auth.JWT({
 export default config({
   schema: g,
   auth: {
-    rules: ( rules ) => rules.private(),
-  }
+    providers: [ jwt ],
+    rules: (rules) => rules.private()
+  },
 })

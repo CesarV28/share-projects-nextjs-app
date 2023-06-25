@@ -13,7 +13,7 @@ pnpm dev
 
 ## Initialice Grafbase cli and copy credentials in .env
 ```
-npx grafbase@.24 dev
+npx grafbase@0.24 dev
 ```
 
 ## Configure .env file

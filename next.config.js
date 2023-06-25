@@ -3,7 +3,7 @@ const nextConfig = {
     images: {
         domains: [
             'lh3.googleusercontent.com',
-            'https://images8.alphacoders.com'
+            'images8.alphacoders.com'
         ]
     },
     experimental: {

@@ -1,17 +1,18 @@
 "use client"
-import { SessionInterface } from '@/common.types';
+import { ProjectInterface, SessionInterface } from '@/common.types';
 import Image from 'next/image';
 import { ChangeEvent, FC, useState } from 'react';
 import FormField from './FormField';
 import { categoryFilters } from '@/constants';
 import CustomMenu from './CustomMenu';
 import Button from './Button';
-import { createNewProject, fetchToken } from '@/lib/actions';
+import { createNewProject, fetchToken, updateProject } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
 interface ProjectFormProps {
-    type: string,
-    session: SessionInterface
+    type: string;
+    session: SessionInterface;
+    project?: ProjectInterface
 }
 
 interface IProjectForm {
@@ -23,19 +24,19 @@ interface IProjectForm {
     category: string;
 }
 
-const ProjectForm: FC<ProjectFormProps> = ({ type, session }) => {
+const ProjectForm: FC<ProjectFormProps> = ({ type, session, project }) => {
 
   const router = useRouter();  
     
   // States
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<IProjectForm>({
-    image: '',
-    title: '',
-    description: '',
-    liveSiteUrl: '',
-    githubUrl: '',
-    category: '',
+    image: project?.image || '',
+    title: project?.title || '',
+    description: project?.description || '',
+    liveSiteUrl: project?.liveSiteUrl || '',
+    githubUrl: project?.githubUrl || '',
+    category: project?.category || '',
   });
 
   // Custom functions
@@ -50,6 +51,13 @@ const ProjectForm: FC<ProjectFormProps> = ({ type, session }) => {
         if( type === 'Create' ) {
 
             await createNewProject( form, session?.user?.id, token);
+            
+            router.push('/');
+        }
+
+        if( type === 'Edit' ) {
+
+            await updateProject( form, project?.id as string , token);
             
             router.push('/');
         }
